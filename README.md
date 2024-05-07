@@ -51,11 +51,11 @@ Clonar repositório:
 
 ```bash
 # Execute o comando git clone para realizar o clone do repositório
-$ git clone https://github.com/mgkclaed/ignite-reactnative_ignitegym.git
+$ git clone https://github.com/luanrobert07/Bullvest.git
 # ou execute
-$ gh repo clone mgckaled/ignite-reactnative_ignitegym
+$ gh repo clone https://github.com/luanrobert07/Bullvest.git
 # Entre na pasta do repositório clonado
-$ cd ignite-reactnative_ignitegym
+$ cd Bullvest
 ```
 
 Dependências e inicialização:
