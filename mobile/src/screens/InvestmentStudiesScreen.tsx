@@ -2,13 +2,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const InvestmentStudiesScreen = () => {
+export function InvestmentStudiesScreen(){
   return (
     <View>
       <Text>Investment Studies Screen</Text>
-      {/* Aqui você pode adicionar o conteúdo da tela */}
     </View>
   );
 };
 
-export default InvestmentStudiesScreen;

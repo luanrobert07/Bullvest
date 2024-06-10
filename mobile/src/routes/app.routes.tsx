@@ -12,6 +12,10 @@ import { Exercise } from '@screens/Exercise'
 import { History } from '@screens/History'
 import { Profile } from '@screens/Profile'
 import { Home } from '@screens/Home'
+import { InitialHome } from '@screens/InitialHome'
+import { Estudo } from '@screens/Estudo'
+import { Simulacao } from '@screens/Simulacao'
+import { Graficos } from '@screens/Graficos'
 
 type AppRoutes = {
 	home: undefined
@@ -20,6 +24,9 @@ type AppRoutes = {
 	}
 	profile: undefined
 	history: undefined
+	estudo: undefined
+	simulacao: undefined
+	graficos: undefined
 }
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>
@@ -49,7 +56,7 @@ export function AppRoutes() {
 		>
 			<Screen
 				name="home"
-				component={ Home }
+				component={InitialHome}
 				options={{
 					tabBarIcon: ({ color }) => (
 						<HomeSvg fill={color} width={iconSize} height={iconSize} />
@@ -59,7 +66,7 @@ export function AppRoutes() {
 
 			<Screen
 				name="history"
-				component={History}
+				component={Home}
 				options={{
 					tabBarIcon: ({ color }) => (
 						<HistorySvg fill={color} width={iconSize} height={iconSize} />
@@ -82,6 +89,25 @@ export function AppRoutes() {
 				component={Exercise}
 				options={{ tabBarButton: () => null }}
 			/>
+
+			<Screen
+				name="estudo"
+				component={Estudo}
+				options={{ tabBarButton: () => null }}
+			/>
+
+			<Screen
+				name="simulacao"
+				component={Simulacao}
+				options={{ tabBarButton: () => null }}
+			/>
+
+			<Screen
+				name="graficos"
+				component={Graficos}
+				options={{ tabBarButton: () => null }}
+			/>	
+
 		</Navigator>
 	)
 }

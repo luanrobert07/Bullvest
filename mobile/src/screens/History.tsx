@@ -84,8 +84,8 @@ export function History() {
 			) : (
 				<Center flex={1}>
 					<Text color="gray.100" textAlign="center">
-						Não há exercícios registrados ainda. {'\n'}
-						Vamos fazer exercícios hoje?
+						Não há pontuações registrados ainda. {'\n'}
+						Vamos fazer pontuações hoje?
 					</Text>
 				</Center>
 			)}
