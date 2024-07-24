@@ -39,9 +39,6 @@ export function ExerciseCard({ data, ...rest }: Props) {
 						{data.name}
 					</Heading>
 
-					<Text fontSize="sm" color="gray.200" mt={1} numberOfLines={2}>
-						{data.series} fases x R$ {data.repetitions}
-					</Text>
 				</VStack>
 
 				<Icon as={Entypo} name="chevron-thin-right" color="gray.300" />

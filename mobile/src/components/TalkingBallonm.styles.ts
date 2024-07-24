@@ -1,0 +1,51 @@
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+  dialog: {
+    width: '50%',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 15,
+    borderWidth: 1,
+    margin: 10,
+    position: 'relative'
+  },
+  leftPoint: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 20,
+    borderRightWidth: 1,
+    borderBottomWidth: 20,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    backgroundColor: 'transparent',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'black',
+    position: 'absolute',
+    top: '50%',
+    left: -20,
+    transform: [{ translateY: -10 }],
+  },
+  innerLeftPoint: {
+    width: 0,
+    height: 0,
+    borderLeftWidth: 17.5,
+    borderRightWidth: 1,
+    borderBottomWidth: 17.5,
+    borderStyle: 'solid',
+    borderRadius: 5,
+    backgroundColor: 'transparent',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'white',
+    position: 'absolute',
+    top: 2.5,
+    left: -16.5,
+  },
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 30,
+  },
+});

@@ -14,7 +14,6 @@ class HistoryController {
         "exercises.name",
         "exercises.group",
         "history.created_at",
-        "history.pontuacao"
       )
       .leftJoin("exercises", "exercises.id", "=", "history.exercise_id")
       .where({ user_id }).orderBy("history.created_at", "desc");

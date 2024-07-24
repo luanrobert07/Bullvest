@@ -1,137 +1,158 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { FlatList, HStack, Heading, Text, VStack, useToast } from 'native-base'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { FlatList, HStack, Heading, Text, VStack, useToast } from 'native-base';
 
-import { ExerciseCard } from '@components/ExerciseCard'
-import { Group } from '@components/Group'
-import { HomeHeader } from '@components/HomeHeader'
-import { Loading } from '@components/Loading'
+import { ExerciseCard } from '@components/ExerciseCard';
+import { Group } from '@components/Group';
+import { HomeHeader } from '@components/HomeHeader';
+import { Loading } from '@components/Loading';
 
-import { AppNavigatorRoutesProps } from '@routes/app.routes'
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
-import { ExerciseDTO } from '@dtos/ExerciseDTO'
-import { api } from '@services/api'
-import { AppError } from '@utils/AppError'
+import { ExerciseDTO } from '@dtos/ExerciseDTO';
+import { api } from '@services/api';
+import { AppError } from '@utils/AppError';
 
-export function Home() {
-	const [isLoading, setIsLoading] = useState(true)
 
-	const [groups, setGroups] = useState<string[]>([])
-	const [exercises, setExercises] = useState<ExerciseDTO[]>([])
-	const [groupSelected, setGroupSelected] = useState('antebraço')
 
-	const toast = useToast()
-	const navigation = useNavigation<AppNavigatorRoutesProps>()
+export function Home1() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [groups, setGroups] = useState<string[]>([]);
+  const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
+  const [groupSelected, setGroupSelected] = useState('antebraço');
+  const [randomAlignmentsSet, setRandomAlignmentsSet] = useState(false);
 
-	function handleOpenExerciseDetails(exerciseId: string) {
-		navigation.navigate('exercise', { exerciseId })
-	}
+  const toast = useToast();
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-	async function fetchGroups() {
-		try {
-			const response = await api.get('/groups')
-			setGroups(response.data)
-		} catch (error) {
-			const isAppError = error instanceof AppError
-			const title = isAppError
-				? error.message
-				: 'Não foi possível carregar os grupos musculares'
+  function handleOpenExerciseDetails(exerciseId: string) {
+    navigation.navigate('exercise', { exerciseId });
+  }
 
-			toast.show({
-				title,
-				placement: 'top',
-				bgColor: 'red.500'
-			})
-		}
-	}
+  async function fetchGroups() {
+    try {
+      const response = await api.get('/groups');
+      setGroups(response.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível carregar os grupos musculares';
 
-	async function fecthExercisesByGroup() {
-		try {
-			setIsLoading(true)
-			const response = await api.get(`/exercises/bygroup/${groupSelected}`)
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
+  }
 
-			setExercises(response.data)
-		} catch (error) {
-			const isAppError = error instanceof AppError
-			const title = isAppError
-				? error.message
-				: 'Não foi possível carregar os exercícios'
+  async function fetchExercisesByGroup() {
+    try {
+      setIsLoading(true);
+      const response = await api.get(`/exercises/bygroup/${groupSelected}`);
+      setExercises(response.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível carregar os exercícios';
 
-			toast.show({
-				title,
-				placement: 'top',
-				bgColor: 'red.500'
-			})
-		} finally {
-			setIsLoading(false)
-		}
-	}
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
-	useEffect(() => {
-		fetchGroups()
-	}, [])
+  useEffect(() => {
+    fetchGroups();
+  }, []);
 
-	useFocusEffect(
-		useCallback(() => {
-			fecthExercisesByGroup()
-		}, [groupSelected])
-	)
+  useFocusEffect(
+    useCallback(() => {
+      if (!randomAlignmentsSet) {
+        setRandomAlignmentsSet(true);
+      }
+      fetchExercisesByGroup();
+    }, [groupSelected, randomAlignmentsSet])
+  );
 
-	return (
-		<VStack flex={1}>
-			<HomeHeader />
+  const renderGroup = ({ item, index }: { item: string; index: number }) => {
+    const totalGroups = groups.length;
 
-			<FlatList
-				data={groups}
-				keyExtractor={item => item}
-				renderItem={({ item }) => (
-					<Group
-						name={item}
-						isActive={
-							groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()
-						}
-						onPress={() => setGroupSelected(item)}
-					/>
-				)}
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				_contentContainerStyle={{
-					px: 8
-				}}
-				my={10}
-				maxH={10}
-			/>
+    // Posicionamento dos grupos na lista
+    let alignItems;
+    if (totalGroups > 3 && !randomAlignmentsSet) {
+      alignItems = ['center', 'flex-start', 'flex-end'][Math.floor(Math.random() * 7)];
+    } else {
+      // Posicionamento normal para até dois grupos ou depois de já ter definido aleatório
+      if (index === 0) alignItems = 'center'; // Primeiro grupo no centro
+      else if (index === 1) alignItems = 'flex-start';
+      else if (index === 2) alignItems = 'flex-end';
+    }
 
-			{isLoading ? (
-				<Loading />
-			) : (
-				<VStack px={8}>
-					<HStack justifyContent="space-between" mb={5}>
-						<Heading color="gray.200" fontSize="md" fontFamily="heading">
-							Exercícios
-						</Heading>
+    return (
+      <VStack key={item} alignItems={alignItems} my={index > 0 ? 4 : 0}>
+        <Group
+          name={item}
+          isActive={groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()}
+          onPress={() => setGroupSelected(item)}
+        />
+      </VStack>
+    );
+  };
 
-						<Text color="gray.200" fontSize="sm">
-							{exercises.length}
-						</Text>
-					</HStack>
+  return (
+    <VStack flex={1}>
+      <HomeHeader />
 
-					<FlatList
-						data={exercises}
-						keyExtractor={item => item.id}
-						renderItem={({ item }) => (
-							<ExerciseCard
-								onPress={() => handleOpenExerciseDetails(item.id)}
-								data={item}
-							/>
-						)}
-						showsVerticalScrollIndicator={false}
-						_contentContainerStyle={{
-							paddingBottom: 20
-						}}
-					/>
-				</VStack>
-			)}
-		</VStack>
-	)
+      <FlatList
+        data={groups}
+        keyExtractor={item => item}
+        renderItem={renderGroup}
+        horizontal={false} // Renderiza na vertical agora
+        contentContainerStyle={{
+          paddingHorizontal: 20,
+          paddingTop: 20,
+        }}
+        my={30}
+        maxH={400}
+      />
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <VStack px={8}>
+          <HStack justifyContent="space-between" mb={5}>
+            <Heading color="gray.200" fontSize="md" fontFamily="heading">
+              Exercícios
+            </Heading>
+
+            <Text color="gray.200" fontSize="sm">
+              {exercises.length}
+            </Text>
+          </HStack>
+
+          <FlatList
+            data={exercises}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <ExerciseCard
+                onPress={() => handleOpenExerciseDetails(item.id)}
+                data={item}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingBottom: 20,
+            }}
+          />
+        </VStack>
+      )}
+    </VStack>
+  );
 }

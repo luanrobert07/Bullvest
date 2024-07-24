@@ -13,7 +13,7 @@ export function HomeHeader() {
 	const { user, signOut } = useAuth()
 
 	return (
-		<HStack bg="gray.600" pt={16} pb={5} px={8} alignItems="center">
+		<HStack bg="gray.600" pt={12} pb={5} px={8} alignItems="center">
 			<UserPhoto
 				source={
 					user.avatar
@@ -24,14 +24,14 @@ export function HomeHeader() {
 				alt="Imagem do usuário"
 				mr={4}
 			/>
-			<VStack flex={1}>
-				<Text color="gray.100" fontSize="md">
+			<HStack flex={1}>
+				<Text color="gray.100" fontSize="md" mr={2} >
 					Olá,
 				</Text>
-				<Heading color="gray.100" fontSize="md" fontFamily="heading">
+				<Heading color="gray.100" fontSize="md" mt={0.5} fontFamily="heading">
 					{user.name}
 				</Heading>
-			</VStack>
+			</HStack>
 			<TouchableOpacity onPress={signOut}>
 				<Icon as={MaterialIcons} name="logout" color="gray.200" size={7} />
 			</TouchableOpacity>

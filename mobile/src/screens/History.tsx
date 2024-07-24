@@ -56,7 +56,7 @@ export function History() {
 
 	return (
 		<VStack flex={1}>
-			<ScreenHeader title="Pontuação" />
+			<ScreenHeader title="Histórico" />
 			{isLoading ? (
 				<Loading />
 			) : exercises?.length > 0 ? (
@@ -84,8 +84,8 @@ export function History() {
 			) : (
 				<Center flex={1}>
 					<Text color="gray.100" textAlign="center">
-						Não há pontuações registrados ainda. {'\n'}
-						Vamos fazer pontuações hoje?
+						Não há exercícios registrados ainda. {'\n'}
+						Vamos fazer exercícios hoje?
 					</Text>
 				</Center>
 			)}

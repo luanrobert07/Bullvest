@@ -1,10 +1,21 @@
 export type ExerciseDTO = {
-	id: string
-	demo: string
-	group: string
-	name: string
-	repetitions: string
-	series: number
-	thumb: string
-	updated_at: string
-}
+	id: string;
+	demo: string;
+	group: string;
+	name: string;
+	quantity: string;
+	thumb: string;
+	updated_at: string;
+	description: string;
+	title: string;
+	xp: number;
+	question: string;
+	answers: AnswerOption[];
+  }
+  
+  export type AnswerOption = {
+  	option: string;
+	id: string;
+	text: string;
+  }
+  
