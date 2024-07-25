@@ -22,6 +22,13 @@ import { Home } from '../screens/INicial';
 import { Quiz } from '../screens/Quiz';
 import { Finish } from '../screens/Finish';
 import { History } from '../screens/History1';
+import { SimulationTeste } from '@screens/Simulation/telaInicial'
+import { Questions } from '@screens/Simulation/Questions'
+import { Finish1 } from '@screens/Simulation/Finish'
+import { Investiment } from '@screens/Simulation/Investiments'
+import { AggressiveInvestmentScreen } from '@screens/Simulation/Investiments/AggressiveInvestmentScreen'
+import { ModerateInvestmentScreen } from '@screens/Simulation/Investiments/ModerateInvestmentScreen'
+import { ConservativeInvestmentScreen } from '@screens/Simulation/Investiments/ConservativeInvestmentScreen'
 
 type AppRoutes = {
 	home: undefined
@@ -31,7 +38,7 @@ type AppRoutes = {
 	profile: undefined
 	history: undefined
 	estudo: undefined
-	simulation: undefined
+	simulationTeste: undefined
 	graficos: undefined
 	exercises: undefined
 	entradas_saidas: undefined
@@ -40,6 +47,12 @@ type AppRoutes = {
 	quiz: undefined
 	finish: undefined
 	teste: undefined
+	perfilInvestidorQuestions: { id: string }
+	finish1: undefined
+	investiment: undefined
+	aggressiveInvestmentScreen: undefined
+	conservativeInvestmentScreen: undefined
+	moderateInvestmentScreen: undefined
 	
 }
 
@@ -117,8 +130,8 @@ export function AppRoutes() {
 			/>
 
 			<Screen
-				name="simulation" //Simulation
-				component={Simulacao}
+				name="simulationTeste" //Simulation
+				component={SimulationTeste}
 				options={{ tabBarButton: () => null }}
 			/>
 
@@ -147,6 +160,25 @@ export function AppRoutes() {
 					component={Finish}
 					options={{ tabBarButton: () => null }}
 				/>
+				<Screen
+					name="finish1"
+					component={Finish1}
+					options={{ tabBarButton: () => null }}
+				/>
+				<Screen
+					name="investiment"
+					component={Investiment}
+					options={{ tabBarButton: () => null }}
+				/>
+				
+				<Screen
+					name="perfilInvestidorQuestions"
+					component={Questions}
+					options={{ tabBarButton: () => null }}
+				/>
+				<Screen name="aggressiveInvestmentScreen" component={AggressiveInvestmentScreen} options={{ tabBarButton: () => null }}/>
+      <Screen name="moderateInvestmentScreen" component={ModerateInvestmentScreen} options={{ tabBarButton: () => null }}/>
+      <Screen name="conservativeInvestmentScreen" component={ConservativeInvestmentScreen} options={{ tabBarButton: () => null }}/>
 
 		</Navigator>
 	)

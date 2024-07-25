@@ -50,7 +50,7 @@ export function InitialHome() {
 				navigation.navigate('estudo')
 				break
 			case 'Simulacao':
-				navigation.navigate('simulacao')
+				navigation.navigate('simulationTeste')
 				break
 			case 'Gráficos':
 				navigation.navigate('graficos')

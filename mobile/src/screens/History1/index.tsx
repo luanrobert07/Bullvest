@@ -4,7 +4,7 @@ import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { HouseLine } from 'phosphor-react-native';
 
 import { Header } from '../../components/Header';
-import { HistoryCard, HistoryProps } from '../../components/HistoryCard';
+import { HistoryCard, HistoryProps } from '../../components/HistoryCard1';
 
 import { styles } from './styles';
 import { historyGetAll, historyRemove } from '../../storage/quizHistoryStorage';
